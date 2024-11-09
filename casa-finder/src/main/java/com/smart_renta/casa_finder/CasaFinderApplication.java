@@ -10,12 +10,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class CasaFinderApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CasaFinderApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CasaFinderApplication.class, args);
+    }
 
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 }
