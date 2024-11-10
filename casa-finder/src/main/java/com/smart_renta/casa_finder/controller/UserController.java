@@ -22,20 +22,25 @@ public class UserController {
 
     @GetMapping("/")
     public UserDTO getUser(@RequestHeader("Authorization") String token) {
-        String jwt = token.substring(7);
-        String username = jwtUtil.extractUsername(jwt);
-        User user = userService.findByEmail(username);
-        return new UserDTO(
-                user.getName(),
-                user.getLastName(),
-                user.getDescription(),
-                user.getPhone(),
-                user.getRegistrationDate(),
-                user.getEmail(),
-                user.getFacebookUserName(),
-                user.getInstagramUserName(),
-                user.getUserType()
-        );
+        if (token.startsWith("Bearer ")) {
+            String jwt = token.substring(7);
+            String username = jwtUtil.extractUsername(jwt);
+            User user = userService.findByEmail(username);
+            return new UserDTO(
+                    user.getName(),
+                    user.getLastName(),
+                    user.getDescription(),
+                    user.getPhone(),
+                    user.getRegistrationDate(),
+                    user.getEmail(),
+                    user.getFacebookUserName(),
+                    user.getInstagramUserName(),
+                    user.getUserType(),
+                    user.getDocumentType(),
+                    user.getDocumentNumber()
+            );
+        } else {
+            throw new IllegalArgumentException("Invalid token format");
+        }
     }
-
 }

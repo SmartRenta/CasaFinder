@@ -69,12 +69,21 @@ public class User {
     @Setter
     private UserType userType;
 
+    @Enumerated(EnumType.STRING)
+    @Getter
+    @Setter
+    private DocumentType documentType;
+
+    @Getter
+    @Setter
+    private Number documentNumber;
+
     // Constructors
 
     public User() {
     }
 
-    public User(String name, String lastName, String description, Number phone, String email, String password, String facebookUserName, String instagramUserName, String userType) {
+    public User(String name, String lastName, String description, Number phone, String email, String password, String facebookUserName, String instagramUserName, String userType, String documentType, Number documentNumber) {
         this.name = name;
         this.lastName = lastName;
         this.description = description;
@@ -83,7 +92,10 @@ public class User {
         this.password = password;
         this.facebookUserName = facebookUserName;
         this.instagramUserName = instagramUserName;
-        this.userType = userType.equals("landlord") ? UserType.LANDLORD : UserType.TENANT;
+        this.userType = userType.equals("LANDLORD") ? UserType.LANDLORD : UserType.TENANT;
+        this.documentType = documentType.equals("DNI") ? DocumentType.DNI : DocumentType.PASSPORT;
+        this.documentNumber = documentNumber;
+
         this.registrationDate = LocalDateTime.now();
     }
 }

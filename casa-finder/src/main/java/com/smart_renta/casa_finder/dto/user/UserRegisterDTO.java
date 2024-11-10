@@ -1,5 +1,6 @@
 package com.smart_renta.casa_finder.dto.user;
 
+import com.smart_renta.casa_finder.model.DocumentType;
 import com.smart_renta.casa_finder.model.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -50,7 +51,18 @@ public class UserRegisterDTO {
     @Setter
     private String instagramUserName;
 
+    @NotBlank(message = "User type is mandatory Tenant or Landlord")
     @Getter
     @Setter
-    private UserType userType;
+    private String userType;
+
+    @NotBlank(message = "Document type is mandatory")
+    @Getter
+    @Setter
+    private String documentType;
+
+    @NotNull(message = "Document number is mandatory")
+    @Getter
+    @Setter
+    private Number documentNumber;
 }

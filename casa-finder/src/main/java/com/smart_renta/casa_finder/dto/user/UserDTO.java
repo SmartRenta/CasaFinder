@@ -1,5 +1,6 @@
 package com.smart_renta.casa_finder.dto.user;
 
+import com.smart_renta.casa_finder.model.DocumentType;
 import com.smart_renta.casa_finder.model.UserType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -47,13 +48,22 @@ public class UserDTO {
     @Setter
     private UserType userType;
 
+    @Enumerated(EnumType.STRING)
+    @Getter
+    @Setter
+    private DocumentType documentType;
+
+    @Getter
+    @Setter
+    private Number documentNumber;
+
 
     // Constructors
 
     public UserDTO() {
     }
 
-    public UserDTO(String name, String lastName, String description, Number phone, LocalDateTime registrationDate, String email, String facebookUserName, String instagramUserName, UserType userType) {
+    public UserDTO(String name, String lastName, String description, Number phone, LocalDateTime registrationDate, String email, String facebookUserName, String instagramUserName, UserType userType, DocumentType documentType, Number documentNumber) {
         this.name = name;
         this.lastName = lastName;
         this.description = description;
@@ -63,6 +73,8 @@ public class UserDTO {
         this.facebookUserName = facebookUserName;
         this.instagramUserName = instagramUserName;
         this.userType = userType;
+        this.documentType = documentType;
+        this.documentNumber = documentNumber;
     }
 }
 

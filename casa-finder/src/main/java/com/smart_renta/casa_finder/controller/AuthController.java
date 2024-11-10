@@ -1,5 +1,6 @@
 package com.smart_renta.casa_finder.controller;
 
+import com.smart_renta.casa_finder.dto.user.LoginResponseDTO;
 import com.smart_renta.casa_finder.dto.user.UserLoginDTO;
 import com.smart_renta.casa_finder.dto.user.UserRegisterDTO;
 import com.smart_renta.casa_finder.model.User;
@@ -29,20 +30,23 @@ public class AuthController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
-    public String login(@RequestBody UserLoginDTO user) {
+    public LoginResponseDTO login(@RequestBody UserLoginDTO user) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
             );
             String jwt = jwtUtil.generateToken(authentication);
-            return "token: " + jwt;
+            User loggedInUser = userService.findByEmail(user.getEmail());
+            return new LoginResponseDTO(jwt, loggedInUser.getUserType());
         } catch (AuthenticationException e) {
-            return "Error: " + e.getMessage();
+            throw new RuntimeException("Error: " + e.getMessage());
         }
     }
 
     @PostMapping("/register")
     public String register(@RequestBody UserRegisterDTO userDto) {
+        System.out.println("USERS");
+        System.out.println(userDto.getName());
         User user = new User(
                 userDto.getName(),
                 userDto.getLastName(),
@@ -52,8 +56,11 @@ public class AuthController {
                 userDto.getPassword(),
                 userDto.getFacebookUserName(),
                 userDto.getInstagramUserName(),
-                userDto.getUserType().name()
+                userDto.getUserType(),
+                userDto.getDocumentType(),
+                userDto.getDocumentNumber()
         );
+        System.out.println(user);
 
 
         User savedUser = userService.save(user);
