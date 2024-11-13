@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/contracts")
@@ -55,7 +56,8 @@ public class ContractController {
 
         User tenant = userService.findById(contractDTO.getTenantId());
 
-        Property property = propertyService.getPropertyById(contractDTO.getPropertyId());
+        Property property = propertyService.getPropertyById(contractDTO.getPropertyId())
+                .orElseThrow(() -> new NoSuchElementException("Propiedad no encontrada"));
 
         Contract contract = new Contract();
         contract.setLandlord(landlord);
