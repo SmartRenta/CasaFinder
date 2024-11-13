@@ -37,41 +37,41 @@ public class Contract {
     @JoinColumn(name = "Tenant_User_id", nullable = false)
     private User tenant;
 
-    @Column(nullable = false)
+    @Column()
     private Date startDate;
 
-    @Column(nullable = false)
+    @Column()
     private Date endDate;
 
-    @Column(nullable = false)
+    @Column()
     private String frequency;
 
-    @Column(nullable = false)
+    @Column()
     private String country;
 
-    @Column(nullable = false)
+    @Column()
     private String signature;
 
-    @Column(nullable = false)
+    @Column()
     private String fingerprint;
 
-    @Column(nullable = false)
+    @Column()
     private String creditcard;
 
-    @Column(nullable = false)
+    @Column()
     private String address;
 
-    @Column(nullable = false)
+    @Column()
     private Date expirationDate;
 
-    @Column(nullable = false)
+    @Column()
     private Number cvv;
 
-    @Column(nullable = false)
+    @Column()
     private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "property_id", nullable = false)
+    @JoinColumn(name = "property_id")
     private Property property;
 
     @PrePersist

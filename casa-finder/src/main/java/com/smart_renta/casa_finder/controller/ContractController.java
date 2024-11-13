@@ -45,7 +45,7 @@ public class ContractController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    
     @PostMapping("/")
     public ResponseEntity<Contract> createContract(
             @RequestHeader("Authorization") String token,
