@@ -69,6 +69,15 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @GetMapping("/landlord/{landlordId}")
+    public ResponseEntity<List<Property>> findPropertiesByLandlordId(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long landlordId) {
+        validateToken(token);
+        List<Property> properties = propertyService.findPropertiesByLandlordId(landlordId);
+        return ResponseEntity.ok(properties);
+    }
+
     private void validateToken(String token) {
         if (!token.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Invalid token format");

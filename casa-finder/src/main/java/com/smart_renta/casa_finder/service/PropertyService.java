@@ -66,6 +66,10 @@ public class PropertyService {
         return propertyRepository.findPropertiesByRegionAndProvinceAndDistrict(region, province, district);
     }
 
+    public List<Property> findPropertiesByLandlordId(Long landlordId){
+        return propertyRepository.findPropertiesByLandlordId(landlordId);
+    }
+
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
     }
