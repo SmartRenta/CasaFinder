@@ -44,7 +44,28 @@ public class Contract {
     private Date endDate;
 
     @Column(nullable = false)
-    private String terms;
+    private String frequency;
+
+    @Column(nullable = false)
+    private String country;
+
+    @Column(nullable = false)
+    private String signature;
+
+    @Column(nullable = false)
+    private String fingerprint;
+
+    @Column(nullable = false)
+    private String creditcard;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
+    private Date expirationDate;
+
+    @Column(nullable = false)
+    private Number cvv;
 
     @Column(nullable = false)
     private Boolean isActive;
