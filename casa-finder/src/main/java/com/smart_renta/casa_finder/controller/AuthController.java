@@ -66,4 +66,19 @@ public class AuthController {
         User savedUser = userService.save(user);
         return "User saved with id: " + savedUser.getId();
     }
+    
+    public String validateToken(String token) {
+        if (token == null || !token.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Invalid token format");
+        }
+
+        String jwt = token.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Invalid token");
+        }
+
+        return username;
+    }
 }
