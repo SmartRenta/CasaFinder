@@ -2,10 +2,14 @@ package com.smart_renta.casa_finder.service;
 
 import com.smart_renta.casa_finder.model.Contract;
 import com.smart_renta.casa_finder.repository.IContractRepository;
+
+import jakarta.persistence.Column;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,9 +38,15 @@ public class ContractService {
             existingContract.setTenant(updatedContract.getTenant());
             existingContract.setStartDate(updatedContract.getStartDate());
             existingContract.setEndDate(updatedContract.getEndDate());
-            existingContract.setTerms(updatedContract.getTerms());
+            existingContract.setFrequency(updatedContract.getFrequency());
             existingContract.setIsActive(updatedContract.getIsActive());
-            existingContract.setProperty(updatedContract.getProperty());      
+            existingContract.setProperty(updatedContract.getProperty()); 
+            existingContract.setCountry(updatedContract.getCountry()); 
+            existingContract.setSignature(updatedContract.getSignature()); 
+            existingContract.setFingerprint(updatedContract.getFingerprint()); 
+            existingContract.setCreditcard(updatedContract.getCreditcard()); 
+            existingContract.setExpirationDate(updatedContract.getExpirationDate()); 
+            existingContract.setCvv(updatedContract.getCvv());    
 
             return contractRepository.save(existingContract);
         } else {
