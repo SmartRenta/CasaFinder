@@ -13,6 +13,10 @@ public class UserDTO {
 
     @Getter
     @Setter
+    private Long id;
+
+    @Getter
+    @Setter
     private String name;
 
     @Getter
@@ -63,7 +67,8 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String name, String lastName, String description, Number phone, LocalDateTime registrationDate, String email, String facebookUserName, String instagramUserName, UserType userType, DocumentType documentType, Number documentNumber) {
+    public UserDTO(Long id, String name, String lastName, String description, Number phone, LocalDateTime registrationDate, String email, String facebookUserName, String instagramUserName, UserType userType, DocumentType documentType, Number documentNumber) {
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.description = description;

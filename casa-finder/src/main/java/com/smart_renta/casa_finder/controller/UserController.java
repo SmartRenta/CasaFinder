@@ -27,6 +27,7 @@ public class UserController {
             String username = jwtUtil.extractUsername(jwt);
             User user = userService.findByEmail(username);
             return new UserDTO(
+                    user.getId(),
                     user.getName(),
                     user.getLastName(),
                     user.getDescription(),
