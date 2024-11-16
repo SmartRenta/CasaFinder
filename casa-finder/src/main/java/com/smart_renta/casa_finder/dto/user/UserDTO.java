@@ -4,6 +4,7 @@ import com.smart_renta.casa_finder.model.DocumentType;
 import com.smart_renta.casa_finder.model.UserType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -61,13 +62,18 @@ public class UserDTO {
     @Setter
     private Number documentNumber;
 
+    @NotNull(message = "Document number is mandatory")
+    @Getter
+    @Setter
+    private String imageUrl;
+
 
     // Constructors
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String name, String lastName, String description, Number phone, LocalDateTime registrationDate, String email, String facebookUserName, String instagramUserName, UserType userType, DocumentType documentType, Number documentNumber) {
+    public UserDTO(Long id, String name, String lastName, String description, Number phone, LocalDateTime registrationDate, String email, String facebookUserName, String instagramUserName, UserType userType, DocumentType documentType, Number documentNumber, String imageUrl) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -80,6 +86,7 @@ public class UserDTO {
         this.userType = userType;
         this.documentType = documentType;
         this.documentNumber = documentNumber;
+        this.imageUrl = imageUrl;
     }
 }
 

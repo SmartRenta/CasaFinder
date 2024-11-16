@@ -65,4 +65,8 @@ public class UserRegisterDTO {
     @Getter
     @Setter
     private Number documentNumber;
+
+    @Getter
+    @Setter
+    private String imageUrl;
 }

@@ -26,6 +26,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public User update(User user) {
+        return userRepository.save(user);
+    }
+
     public User findById(Number id) {
         return userRepository.findById(id).orElse(null);
     }
