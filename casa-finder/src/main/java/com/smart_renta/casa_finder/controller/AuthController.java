@@ -3,7 +3,9 @@ package com.smart_renta.casa_finder.controller;
 import com.smart_renta.casa_finder.dto.user.LoginResponseDTO;
 import com.smart_renta.casa_finder.dto.user.UserLoginDTO;
 import com.smart_renta.casa_finder.dto.user.UserRegisterDTO;
+import com.smart_renta.casa_finder.model.Notification;
 import com.smart_renta.casa_finder.model.User;
+import com.smart_renta.casa_finder.service.NotificationService;
 import com.smart_renta.casa_finder.service.UserService;
 import com.smart_renta.casa_finder.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NotificationService notificationService;
+    
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -63,8 +68,13 @@ public class AuthController {
         );
         System.out.println(user);
 
-
         User savedUser = userService.save(user);
+
+        System.out.println(">>>>>>>>>> user_idd: "+savedUser.getId());
+        if(savedUser.getId() > 0){
+            notificationService.saveDefaultNotification(savedUser);
+        }
+
         return "User saved with id: " + savedUser.getId();
     }
 

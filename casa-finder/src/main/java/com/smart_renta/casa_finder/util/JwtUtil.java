@@ -36,4 +36,15 @@ public class JwtUtil {
                 .getBody();
         return claims.getSubject();
     }
+    
+    public void validateToken(String token) {
+        if (!token.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Invalid token format");
+        }
+        String jwt = token.substring(7);
+        String username = extractUsername(jwt);
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Invalid token");
+        }
+    }
 }
