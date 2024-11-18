@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smart_renta.casa_finder.model.Contract;
 import com.smart_renta.casa_finder.model.Notification;
+import com.smart_renta.casa_finder.model.Property;
 import com.smart_renta.casa_finder.model.User;
 import com.smart_renta.casa_finder.repository.INotificationRepository;
 
@@ -21,9 +23,19 @@ public class NotificationService {
         return notificationRepository.findByUserId(userId);
     }
 
-    public Notification saveDefaultNotification(User user){
+    public Notification saveNotification(String content, String route, User user){
         Notification notification = new Notification();
-        notification.setContent("CasaFinder te da la bienvenida!! Consigue contratos rápidos y seguros.");
+        notification.setContent(content);
+        notification.setRoute(route);
+        notification.setUser(user);
+        notification.setCreationDate(LocalDateTime.now());
+        notification.setRead(false);
+        return notificationRepository.save(notification);
+    }
+
+    public Notification saveDefaultNotification(User user){
+        
+        String content = "CasaFinder te da la bienvenida!! Consigue contratos rápidos y seguros.";
         String route;
         switch(user.getUserType()){
             case LANDLORD:
@@ -36,11 +48,13 @@ public class NotificationService {
                 route = "/error";
                 break;
         }
-        notification.setRoute(route);
-        notification.setUser(user);
-        notification.setCreationDate(LocalDateTime.now());
-        notification.setRead(false);
-        return notificationRepository.save(notification);
+        return saveNotification(content, route, user);
+    }
+
+    public Notification saveLandlordContractRequest(User tenant, Property property, User landlord, Contract contract){
+        String content = String.format("Revisa la solicitud de propuesta que ha generado %s %s para tu propiedad %s.",tenant.getName(), tenant.getLastName(), property.getTitle());
+        String route = "/landlord/contratos/"+contract.getId();
+        return saveNotification(content, route, landlord);
     }
 
     public boolean markNotificationAsRead(Long notificationId){
@@ -48,7 +62,6 @@ public class NotificationService {
         if(notif.isPresent()){
             notif.get().setRead(true);
             Notification notif2 = notificationRepository.save(notif.get());
-            System.out.println(">>>>>>>>>>>> notif2 read? : "+notif2.getRead());
             return notif2.getRead();
         }
         return false;

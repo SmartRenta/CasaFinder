@@ -50,8 +50,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@RequestBody UserRegisterDTO userDto) {
-        System.out.println("USERS");
-        System.out.println(userDto.getName());
+        
         User user = new User(
                 userDto.getName(),
                 userDto.getLastName(),
@@ -66,11 +65,9 @@ public class AuthController {
                 userDto.getDocumentNumber(),
                 userDto.getImageUrl()
         );
-        System.out.println(user);
 
         User savedUser = userService.save(user);
 
-        System.out.println(">>>>>>>>>> user_idd: "+savedUser.getId());
         if(savedUser.getId() > 0){
             notificationService.saveDefaultNotification(savedUser);
         }

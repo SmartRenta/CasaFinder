@@ -5,6 +5,7 @@ import com.smart_renta.casa_finder.model.Contract;
 import com.smart_renta.casa_finder.model.User;
 import com.smart_renta.casa_finder.model.Property;
 import com.smart_renta.casa_finder.service.ContractService;
+import com.smart_renta.casa_finder.service.NotificationService;
 import com.smart_renta.casa_finder.service.UserService;
 import com.smart_renta.casa_finder.service.PropertyService;
 import com.smart_renta.casa_finder.util.JwtUtil;
@@ -27,6 +28,9 @@ public class ContractController {
 
     @Autowired
     private PropertyService propertyService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private AuthController authController;
@@ -76,6 +80,11 @@ public class ContractController {
         contract.setProperty(property);
 
         Contract createdContract = contractService.saveContract(contract);
+
+        if(createdContract.getId() > 0){
+            notificationService.saveLandlordContractRequest(tenant, property, landlord, createdContract);
+        }
+
         return ResponseEntity.ok(createdContract);
     }
 
