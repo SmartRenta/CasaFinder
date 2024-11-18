@@ -68,7 +68,7 @@ public class Contract {
     private Date expirationDate;
 
     @Column()
-    private Number cvv;
+    private Long cvv;
 
     @Column()
     private Boolean isActive;
