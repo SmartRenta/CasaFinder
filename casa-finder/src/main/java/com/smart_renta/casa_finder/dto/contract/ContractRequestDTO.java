@@ -2,6 +2,7 @@ package com.smart_renta.casa_finder.dto.contract;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.Date;
@@ -39,11 +40,13 @@ public class ContractRequestDTO {
     private String country;
 
     @NotBlank(message = "Signature is mandatory")
+    @Size(max = 10485760, message = "Signature is too large") 
     @Getter
     @Setter
     private String signature;
 
     @NotBlank(message = "Fingerprint is mandatory")
+    @Size(max = 10485760, message = "Fingerprint is too large") 
     @Getter
     @Setter
     private String fingerprint;
