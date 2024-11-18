@@ -69,7 +69,7 @@ public class ContractRequestDTO {
     @NotNull(message = "CVV is mandatory")
     @Getter
     @Setter
-    private Number cvv;
+    private Long cvv;
 
     @NotNull(message = "Active status is mandatory")
     @Getter
