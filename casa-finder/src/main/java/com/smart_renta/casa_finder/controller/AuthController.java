@@ -4,6 +4,7 @@ import com.smart_renta.casa_finder.dto.user.LoginResponseDTO;
 import com.smart_renta.casa_finder.dto.user.UserLoginDTO;
 import com.smart_renta.casa_finder.dto.user.UserRegisterDTO;
 import com.smart_renta.casa_finder.model.User;
+import com.smart_renta.casa_finder.service.NotificationService;
 import com.smart_renta.casa_finder.service.UserService;
 import com.smart_renta.casa_finder.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class AuthController {
     private UserService userService;
 
     @Autowired
+    private NotificationService notificationService;
+    
+    @Autowired
     private JwtUtil jwtUtil;
 
     @PostMapping("/login")
@@ -45,8 +49,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(@RequestBody UserRegisterDTO userDto) {
-        System.out.println("USERS");
-        System.out.println(userDto.getName());
+        
         User user = new User(
                 userDto.getName(),
                 userDto.getLastName(),
@@ -58,15 +61,19 @@ public class AuthController {
                 userDto.getInstagramUserName(),
                 userDto.getUserType(),
                 userDto.getDocumentType(),
-                userDto.getDocumentNumber()
+                userDto.getDocumentNumber(),
+                userDto.getImageUrl()
         );
-        System.out.println(user);
-
 
         User savedUser = userService.save(user);
+
+        if(savedUser.getId() > 0){
+            notificationService.saveDefaultNotification(savedUser);
+        }
+
         return "User saved with id: " + savedUser.getId();
     }
-    
+
     public String validateToken(String token) {
         if (token == null || !token.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Invalid token format");

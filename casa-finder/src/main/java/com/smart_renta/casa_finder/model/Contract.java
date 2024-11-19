@@ -68,10 +68,13 @@ public class Contract {
     private Date expirationDate;
 
     @Column()
-    private Number cvv;
+    private Long cvv;
 
     @Column()
     private Boolean isActive;
+
+    @Column()
+    private Boolean accepted;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "property_id")

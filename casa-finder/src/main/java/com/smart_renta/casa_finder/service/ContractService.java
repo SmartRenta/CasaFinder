@@ -3,15 +3,15 @@ package com.smart_renta.casa_finder.service;
 import com.smart_renta.casa_finder.model.Contract;
 import com.smart_renta.casa_finder.repository.IContractRepository;
 
-import jakarta.persistence.Column;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ContractService {
@@ -65,4 +65,19 @@ public class ContractService {
     public List<Contract> getAllContracts() {
         return contractRepository.findAll();
     }
+
+    public boolean acceptContract(Long id, boolean value){
+        Optional<Contract> contract = contractRepository.findById(id);
+        if(contract.isPresent()){
+            contract.get().setAccepted(value);
+            Contract cont2 = contractRepository.save(contract.get());
+            return cont2.getAccepted() == value;
+        }
+        return false;
+    }
+
+    public List<Contract> getContractsByUserId(Long userId){
+        return getAllContracts().stream().filter(c -> Objects.equals(c.getLandlord().getId(), userId)).collect(Collectors.toList());//contractRepository.findByLandlordId(userId);
+    }
+
 }

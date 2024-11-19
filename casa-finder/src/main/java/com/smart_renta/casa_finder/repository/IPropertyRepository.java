@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IPropertyRepository extends JpaRepository<Property, Long> {
     List<Property> findPropertiesByRegionAndProvinceAndDistrict(String region, String province, String district);
+    List<Property> findPropertiesByLandlordId(Long landlordId);
 }
