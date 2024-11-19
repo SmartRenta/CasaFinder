@@ -59,18 +59,6 @@ public class Contract {
     private String fingerprint;
 
     @Column()
-    private String creditcard;
-
-    @Column()
-    private String address;
-
-    @Column()
-    private Date expirationDate;
-
-    @Column()
-    private Long cvv;
-
-    @Column()
     private Boolean isActive;
 
     @Column()

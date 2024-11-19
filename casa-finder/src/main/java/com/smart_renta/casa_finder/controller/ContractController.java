@@ -60,7 +60,7 @@ public class ContractController {
             @RequestBody ContractRequestDTO contractDTO) {
         authController.validateToken(token);
 
-        User landlord = userService.findByEmail(contractDTO.getLandlordEmail());
+        User landlord = userService.findById(contractDTO.getLandlordId());
 
         User tenant = userService.findById(contractDTO.getTenantId());
 
@@ -76,10 +76,6 @@ public class ContractController {
         contract.setCountry(contractDTO.getCountry());
         contract.setSignature(contractDTO.getSignature());
         contract.setFingerprint(contractDTO.getFingerprint());
-        contract.setCreditcard(contractDTO.getCreditcard());
-        contract.setAddress(contractDTO.getAddress());
-        contract.setExpirationDate(contractDTO.getExpirationDate());
-        contract.setCvv(contractDTO.getCvv());
         contract.setIsActive(contractDTO.getIsActive());
         contract.setProperty(property);
 

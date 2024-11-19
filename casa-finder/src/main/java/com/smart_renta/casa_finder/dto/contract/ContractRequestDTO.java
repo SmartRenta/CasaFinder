@@ -9,10 +9,10 @@ import java.sql.Date;
 
 public class ContractRequestDTO {
 
-    @NotBlank(message = "Landlord email is mandatory")
+    @NotNull(message = "Tenant ID is mandatory")
     @Getter
     @Setter
-    private String landlordEmail;
+    private Long landlordId;
 
     @NotNull(message = "Tenant ID is mandatory")
     @Getter
@@ -50,26 +50,6 @@ public class ContractRequestDTO {
     @Getter
     @Setter
     private String fingerprint;
-
-    @NotBlank(message = "Credit card is mandatory")
-    @Getter
-    @Setter
-    private String creditcard;
-
-    @NotBlank(message = "Address is mandatory")
-    @Getter
-    @Setter
-    private String address;
-
-    @NotNull(message = "Expiration date is mandatory")
-    @Getter
-    @Setter
-    private Date expirationDate;
-
-    @NotNull(message = "CVV is mandatory")
-    @Getter
-    @Setter
-    private Long cvv;
 
     @NotNull(message = "Active status is mandatory")
     @Getter
