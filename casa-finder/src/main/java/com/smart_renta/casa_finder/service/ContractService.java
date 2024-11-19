@@ -43,11 +43,7 @@ public class ContractService {
             existingContract.setProperty(updatedContract.getProperty()); 
             existingContract.setCountry(updatedContract.getCountry()); 
             existingContract.setSignature(updatedContract.getSignature()); 
-            existingContract.setFingerprint(updatedContract.getFingerprint()); 
-            existingContract.setCreditcard(updatedContract.getCreditcard()); 
-            existingContract.setExpirationDate(updatedContract.getExpirationDate()); 
-            existingContract.setCvv(updatedContract.getCvv());    
-
+            existingContract.setFingerprint(updatedContract.getFingerprint());
             return contractRepository.save(existingContract);
         } else {
             throw new RuntimeException("Contract not found with id: " + id);
