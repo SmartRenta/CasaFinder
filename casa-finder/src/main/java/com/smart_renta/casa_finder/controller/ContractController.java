@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/contracts")
+@RequestMapping("/api/v1")
 public class ContractController {
 
     @Autowired
@@ -34,15 +35,18 @@ public class ContractController {
 
     @Autowired
     private AuthController authController;
+    
+    @Autowired
+    private JwtUtil jwtUtil;
 
-    @GetMapping("/")
+    @GetMapping("/contracts")
     public ResponseEntity<List<Contract>> getAllContracts(@RequestHeader("Authorization") String token) {
         authController.validateToken(token);
         List<Contract> contracts = contractService.getAllContracts();
         return ResponseEntity.ok(contracts);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/contracts/{id}")
     public ResponseEntity<Contract> getContractById(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         authController.validateToken(token);
         return contractService.getContractById(id)
@@ -50,7 +54,7 @@ public class ContractController {
                 .orElse(ResponseEntity.notFound().build());
     }
     
-    @PostMapping("/")
+    @PostMapping("/contracts/")
     public ResponseEntity<Contract> createContract(
             @RequestHeader("Authorization") String token,
             @RequestBody ContractRequestDTO contractDTO) {
@@ -88,7 +92,7 @@ public class ContractController {
         return ResponseEntity.ok(createdContract);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/contracts/{id}")
     public ResponseEntity<Contract> updateContract(
             @RequestHeader("Authorization") String token,
             @PathVariable Long id,
@@ -98,10 +102,35 @@ public class ContractController {
         return ResponseEntity.ok(updatedContract);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/contracts/{id}")
     public ResponseEntity<Void> deleteContract(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         authController.validateToken(token);
         contractService.deleteContract(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/contracts/{id}/response")
+    public boolean setRejectedContractById(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long id,
+            @RequestBody boolean response) {
+        
+        jwtUtil.validateToken(token);
+        boolean done = contractService.acceptContract(id, response);
+        if(done){
+            Optional<Contract> contract = contractService.getContractById(id);
+            if(contract.isPresent()){
+                notificationService.saveTenantContractResponse(contract.get().getProperty(), 
+                    contract.get().getLandlord(), contract.get().getTenant(), contract.get(), response);
+            }
+        }
+        return done;
+    }
+
+    @GetMapping("/users/{userId}/contracts")
+    public List<Contract> getContractsByUserId(@RequestHeader("Authorization") String token, @PathVariable Long userId){
+        jwtUtil.validateToken(token);
+        List<Contract> contracts = contractService.getContractsByUserId(userId);
+        return contracts;
     }
 }

@@ -3,7 +3,6 @@ package com.smart_renta.casa_finder.controller;
 import com.smart_renta.casa_finder.dto.user.LoginResponseDTO;
 import com.smart_renta.casa_finder.dto.user.UserLoginDTO;
 import com.smart_renta.casa_finder.dto.user.UserRegisterDTO;
-import com.smart_renta.casa_finder.model.Notification;
 import com.smart_renta.casa_finder.model.User;
 import com.smart_renta.casa_finder.service.NotificationService;
 import com.smart_renta.casa_finder.service.UserService;

@@ -73,6 +73,9 @@ public class Contract {
     @Column()
     private Boolean isActive;
 
+    @Column()
+    private Boolean accepted;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "property_id")
     private Property property;

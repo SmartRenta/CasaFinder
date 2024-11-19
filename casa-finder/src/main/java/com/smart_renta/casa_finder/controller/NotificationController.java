@@ -49,6 +49,8 @@ public class NotificationController {
 
     @PostMapping("/notifications/{notificationId}/read")
     public boolean markAsRead(@RequestHeader("Authorization") String token, @PathVariable Long notificationId){
+        
+        jwtUtil.validateToken(token);
         return notificationService.markNotificationAsRead(notificationId);
     }
 

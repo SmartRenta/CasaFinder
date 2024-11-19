@@ -51,8 +51,15 @@ public class NotificationService {
         return saveNotification(content, route, user);
     }
 
+    public Notification saveTenantContractResponse(Property property, User landlord, User tenant, Contract contract, boolean accepted){
+        String content = String.format("Su propuesta de contrato para %s ha sido %s por %s %s", 
+        property.getTitle(), accepted?"aceptada":"rechazada", landlord.getName(), landlord.getLastName());
+        String route = "/tenant/contratos/"+contract.getId();
+        return saveNotification(content, route, tenant);
+    }
+
     public Notification saveLandlordContractRequest(User tenant, Property property, User landlord, Contract contract){
-        String content = String.format("Revisa la solicitud de propuesta que ha generado %s %s para tu propiedad %s.",tenant.getName(), tenant.getLastName(), property.getTitle());
+        String content = String.format("Revisa la solicitud de propuesta que ha generado %s %s para tu propiedad %s.", tenant.getName(), tenant.getLastName(), property.getTitle());
         String route = "/landlord/contratos/"+contract.getId();
         return saveNotification(content, route, landlord);
     }
