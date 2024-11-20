@@ -29,11 +29,11 @@ public class SmartContract {
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "Contract_id", nullable = false)
+    @JoinColumn(name = "contract_id", nullable = false)
     private Contract contract;
 
     @Column(nullable = false, length = 250)
-    private String contractCode;
+    private String contractAddress; // Direccion de contrato
 
     @Column(nullable = false, length = 50)
     private String executionStatus;
@@ -41,4 +41,9 @@ public class SmartContract {
     @Column(nullable = false, length = 250)
     private String deployedUrl;
 
+    @Column(nullable = false)
+    private Double montoDelAlquiler; // Nuevo atributo para el monto en ETH.
+
+    @Column(nullable = false)
+    private Boolean pagado; // Nuevo atributo para indicar si está pagado
 }
