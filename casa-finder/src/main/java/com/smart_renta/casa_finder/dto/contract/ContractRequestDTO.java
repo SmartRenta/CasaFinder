@@ -1,11 +1,12 @@
 package com.smart_renta.casa_finder.dto.contract;
 
+import java.util.Date;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import java.sql.Date;
 
 public class ContractRequestDTO {
 
@@ -33,6 +34,11 @@ public class ContractRequestDTO {
     @Getter
     @Setter
     private String frequency;
+
+    @NotBlank(message = "Address is mandatory")
+    @Getter
+    @Setter
+    private String address;
 
     @NotBlank(message = "Country is mandatory")
     @Getter

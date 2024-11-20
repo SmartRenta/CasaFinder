@@ -1,6 +1,7 @@
 package com.smart_renta.casa_finder.model;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,7 +24,7 @@ public class Notification {
     private Long id;
     private String content;
 
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private LocalDateTime creationDate = LocalDateTime.now(ZoneId.of("GMT-5"));
     private Boolean read = false;
     private LocalDateTime seenDate;
     private String route;

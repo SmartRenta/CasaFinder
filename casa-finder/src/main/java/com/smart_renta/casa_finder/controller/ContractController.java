@@ -2,6 +2,7 @@ package com.smart_renta.casa_finder.controller;
 
 import com.smart_renta.casa_finder.dto.contract.ContractRequestDTO;
 import com.smart_renta.casa_finder.model.Contract;
+import com.smart_renta.casa_finder.model.ContractStatus;
 import com.smart_renta.casa_finder.model.User;
 import com.smart_renta.casa_finder.model.Property;
 import com.smart_renta.casa_finder.service.ContractService;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -70,14 +73,18 @@ public class ContractController {
         Contract contract = new Contract();
         contract.setLandlord(landlord);
         contract.setTenant(tenant);
-        contract.setStartDate(contractDTO.getStartDate());
-        contract.setEndDate(contractDTO.getEndDate());
+        LocalDateTime startDate = contractDTO.getStartDate().toInstant().atZone(ZoneId.of("GMT-5")).toLocalDate().atTime(0,0,0);
+        contract.setStartDate(startDate);
+        LocalDateTime endDate = contractDTO.getEndDate().toInstant().atZone(ZoneId.of("GMT-5")).toLocalDate().atTime(23,59,59);
+        contract.setEndDate(endDate);
         contract.setFrequency(contractDTO.getFrequency());
+        contract.setAddress(contractDTO.getAddress());
         contract.setCountry(contractDTO.getCountry());
         contract.setSignature(contractDTO.getSignature());
         contract.setFingerprint(contractDTO.getFingerprint());
         contract.setIsActive(contractDTO.getIsActive());
         contract.setProperty(property);
+        contract.setStatus(ContractStatus.PENDIENTE);
 
         Contract createdContract = contractService.saveContract(contract);
 

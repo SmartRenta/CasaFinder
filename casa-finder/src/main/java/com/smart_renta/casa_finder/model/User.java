@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "users")
@@ -110,6 +111,6 @@ public class User {
         this.documentNumber = documentNumber;
         this.imageUrl = imageUrl == null ? "https://cdn-icons-png.flaticon.com/512/1361/1361728.png" : imageUrl;
 
-        this.registrationDate = LocalDateTime.now();
+        this.registrationDate = LocalDateTime.now(ZoneId.of("GMT-5"));
     }
 }

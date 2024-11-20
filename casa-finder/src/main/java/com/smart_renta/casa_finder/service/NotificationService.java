@@ -1,6 +1,7 @@
 package com.smart_renta.casa_finder.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class NotificationService {
         notification.setContent(content);
         notification.setRoute(route);
         notification.setUser(user);
-        notification.setCreationDate(LocalDateTime.now());
+        notification.setCreationDate(LocalDateTime.now(ZoneId.of("GMT-5")));
         notification.setRead(false);
         return notificationRepository.save(notification);
     }

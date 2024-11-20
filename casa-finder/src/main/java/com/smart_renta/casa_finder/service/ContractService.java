@@ -1,6 +1,7 @@
 package com.smart_renta.casa_finder.service;
 
 import com.smart_renta.casa_finder.model.Contract;
+import com.smart_renta.casa_finder.model.ContractStatus;
 import com.smart_renta.casa_finder.repository.IContractRepository;
 
 
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -66,6 +69,8 @@ public class ContractService {
         Optional<Contract> contract = contractRepository.findById(id);
         if(contract.isPresent()){
             contract.get().setAccepted(value);
+            contract.get().setAcceptedDate(LocalDateTime.now(ZoneId.of("GMT-5")));
+            contract.get().setStatus(value ? ContractStatus.ACEPTADO : ContractStatus.RECHAZADO);
             Contract cont2 = contractRepository.save(contract.get());
             return cont2.getAccepted() == value;
         }

@@ -1,9 +1,12 @@
 package com.smart_renta.casa_finder.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -39,13 +42,16 @@ public class Contract {
     private User tenant;
 
     @Column()
-    private Date startDate;
+    private LocalDateTime startDate;
 
     @Column()
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @Column()
     private String frequency;
+
+    @Column()
+    private String address;
 
     @Column()
     private String country;
@@ -63,6 +69,12 @@ public class Contract {
 
     @Column()
     private Boolean accepted;
+    private LocalDateTime acceptedDate;
+
+    @Enumerated(EnumType.STRING)
+    private ContractStatus status;
+    
+    private LocalDateTime creationDate = LocalDateTime.now(ZoneId.of("GMT-5"));
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "property_id")
