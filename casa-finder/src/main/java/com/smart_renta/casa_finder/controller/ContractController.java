@@ -22,6 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class ContractController {
 
     @Autowired
@@ -136,4 +137,12 @@ public class ContractController {
         List<Contract> contracts = contractService.getContractsByUserId(userId);
         return contracts;
     }
+
+    @GetMapping("/tenants/{tenantId}/contracts")
+    public List<Contract> getContractsByTenantId(@RequestHeader("Authorization") String token, @PathVariable Long tenantId){
+        jwtUtil.validateToken(token);
+        List<Contract> contracts = contractService.getContractsByTenantId(tenantId);
+        return contracts;
+    }
+
 }
