@@ -78,7 +78,11 @@ public class ContractService {
     }
 
     public List<Contract> getContractsByUserId(Long userId){
-        return getAllContracts().stream().filter(c -> Objects.equals(c.getLandlord().getId(), userId)).collect(Collectors.toList());//contractRepository.findByLandlordId(userId);
+        return getAllContracts().stream().filter(c -> Objects.equals(c.getLandlord().getId(), userId)).collect(Collectors.toList());
+    }
+
+    public List<Contract> getContractsByTenantId(Long tenantId){
+        return getAllContracts().stream().filter(c -> Objects.equals(c.getTenant().getId(), tenantId)).collect(Collectors.toList());
     }
 
 }
