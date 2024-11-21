@@ -20,6 +20,9 @@ public class configDataSource {
     @Bean
     public DataSource getDataSource(){
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+
+        System.out.println(">>>>>>>>>> DBUrl: "+DBUrl);
+        System.out.println(">>>>>>>>>> DBUsername: "+DBUsername);
         dataSourceBuilder.url(DBUrl);
         dataSourceBuilder.username(DBUsername);
         dataSourceBuilder.password(DBPassword);
