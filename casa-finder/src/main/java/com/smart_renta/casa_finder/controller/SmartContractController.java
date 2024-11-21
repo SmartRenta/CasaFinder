@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/smart-contracts")
+@CrossOrigin(origins = "*")
 public class SmartContractController {
 
     @Autowired
